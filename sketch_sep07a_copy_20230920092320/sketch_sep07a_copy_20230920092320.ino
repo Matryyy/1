@@ -1,7 +1,7 @@
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 //#include <DHT.h>
-
+//test
 LiquidCrystal_I2C lcd(0x27, 16, 2);  
 int fotorezistorPin = A0;             
 int diodaPin = 9;                     
