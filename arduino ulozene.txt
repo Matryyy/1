@@ -716,3 +716,17 @@ void loop() {
 
   delay(100);  
 }
+
+
+
+
+---------------------zkouska teplota---------------------
+ float voltage = (temp / 1024.0) *   5.0;
+  float tempC = (voltage - .5) * 100;
+
+  if (tempC > 24) {
+    digitalWrite(dioda_teplo, HIGH)
+  } else {
+    digitalWrite(dioda_teplo, LOW)
+  }
+   
