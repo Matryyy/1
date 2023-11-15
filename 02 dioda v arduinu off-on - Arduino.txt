@@ -1,0 +1,43 @@
+bool diodeOn = false;
+unsigned long lastToggleTime = 0;
+const unsigned long toggleInterval = 5000;
+const int buttonPin = 11; // Pin pro tlačítko
+bool buttonPressed = false;
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(10, OUTPUT); 
+  pinMode(buttonPin, INPUT_PULLUP); // Nastavíme tlačítko jako INPUT s pull-up rezistory
+}
+
+void loop() {
+  unsigned long currentTime = millis();
+
+  if (currentTime - lastToggleTime >= toggleInterval) {
+    lastToggleTime = currentTime;
+    diodeOn = !diodeOn;
+
+    if (buttonPressed) {
+      Serial.println("Tlačítko bylo stisknuto");
+      buttonPressed = false;
+    } else {
+      Serial.println("Tlačítko nebylo stisknuto");
+    }
+
+    if (diodeOn) {
+      digitalWrite(10, HIGH); 
+      Serial.println("LED je zapnuta");
+    } else {
+      digitalWrite(10, LOW); 
+      Serial.println("LED je vypnuta");
+    }
+  }
+
+  int buttonState = digitalRead(buttonPin); // Přečteme stav tlačítka
+
+  if (buttonState == HIGH) {
+    buttonPressed = true;
+  }
+
+  delay(1000); // Zpoždění 1 sekundy mezi kontroly
+}

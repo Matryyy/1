@@ -1,0 +1,30 @@
+import serial
+import RPi.GPIO as GPIO
+import time
+
+
+diode_pin = 12
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(diode_pin, GPIO.OUT)
+
+
+ser = serial.Serial('/dev/ttyACM0', 9600)  
+
+try:
+    while True:
+        
+        message = ser.readline().decode('utf-8').strip()
+        
+        
+        if message == "on":
+            GPIO.output(diode_pin, GPIO.HIGH)
+            print("zapíná se")
+        
+        
+        elif message == "off":
+            GPIO.output(diode_pin, GPIO.LOW)
+            print("vypíná se")
+
+except KeyboardInterrupt:
+    GPIO.cleanup()
+    ser.close()

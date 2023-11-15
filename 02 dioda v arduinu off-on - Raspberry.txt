@@ -1,0 +1,10 @@
+import serial
+
+ser = serial.Serial('/dev/ttyACM0', 9600)
+
+try:
+    while True:
+        message = ser.readline().decode('utf-8').strip()
+        print("Stav LED na Arduinu:", message)
+except KeyboardInterrupt:
+    ser.close()
